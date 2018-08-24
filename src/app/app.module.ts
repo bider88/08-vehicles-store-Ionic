@@ -11,11 +11,13 @@ import { HomePage } from '../pages/home/home';
 import { CartProvider } from '../providers/cart/cart';
 import { ProductsProvider } from '../providers/products/products';
 import { UserProvider } from '../providers/user/user';
+import { ImagePipe } from '../pipes/image/image';
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    ImagePipe
   ],
   imports: [
     BrowserModule,

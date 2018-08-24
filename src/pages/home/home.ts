@@ -26,7 +26,6 @@ export class HomePage {
         const newData = this.group( products.data, 2 );
 
         this.products.push(...newData);
-        console.log(this.products);
       }
     )
   }
@@ -60,7 +59,6 @@ export class HomePage {
       newArray.push( arr.slice(i, i+size ) );
     }
 
-    console.log( 'new Array' );
     return newArray;
   }
 

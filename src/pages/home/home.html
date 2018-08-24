@@ -11,7 +11,7 @@
   <ion-grid>
     <ion-row *ngFor="let productPar of products">
       <ion-col *ngFor="let item of productPar">
-        <img src="http://localhost/rest/public/img/productos/{{ item.codigo }}.jpg">
+        <img [src]="item.codigo | image">
         <p>
           {{ item.producto }}
           <br>
@@ -22,7 +22,7 @@
   </ion-grid>
 
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)" [enabled]="notFinished">
-    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    <ion-infinite-scroll-content loadingSpinner="dots" loadingText="Cargando más vehículos..."></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 
 </ion-content>
