@@ -61,6 +61,10 @@ export class HomePage {
     this.navCtrl.push(ProductPage, { product });
   }
 
+  showCart() {
+    this._cartProvider.showCart();
+  }
+
   private group( arr: any, size: number ) {
 
     let newArray = [];

@@ -5,7 +5,7 @@
     </ion-title>
 
     <ion-buttons end>
-      <button ion-button icon-only>
+      <button ion-button icon-only (click)="showCart()">
         <ion-icon name="cart"></ion-icon>
         <ion-badge color="danger" *ngIf="totalItemsToCart() > 0" class="number-cart">{{ totalItemsToCart() }}</ion-badge>
       </button>

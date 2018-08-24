@@ -1,9 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AlertController, ToastController, Platform } from 'ionic-angular';
+import { AlertController, ToastController, Platform, ModalController } from 'ionic-angular';
 import { Product } from '../../models/product.model';
 
+import { UserProvider } from '../user/user';
+// Plugins
 import { Storage } from '@ionic/storage';
+import { CartPage } from '../../pages/cart/cart';
+import { LoginPage } from '../../pages/login/login';
 
 @Injectable()
 export class CartProvider {
@@ -12,8 +16,10 @@ export class CartProvider {
 
   constructor(
     public http: HttpClient,
+    private _userProvider: UserProvider,
     private alertCtrl: AlertController,
     private toastCtrl: ToastController,
+    private modalCtrl: ModalController,
     private storage: Storage,
     private platform: Platform
   ) {
@@ -33,19 +39,21 @@ export class CartProvider {
     this.showToast(`Se ha agregado ${item.producto}.`, 2000);
   }
 
-  showAlert(title: string = 'Aviso', subTitle: string = '') {
-    this.alertCtrl.create({
-      title,
-      subTitle,
-      buttons: ['OK']
-    }).present();
-  }
+  showCart() {
+    let modal: any;
+    if ( this._userProvider.token ) {
+      modal = this.modalCtrl.create( CartPage );
+    } else {
+      modal = this.modalCtrl.create( LoginPage );
+    }
 
-  showToast(message: string = 'Aviso', duration: number = 3000) {
-    this.toastCtrl.create({
-      message,
-      duration
-    }).present();
+    modal.present();
+
+    modal.onDidDismiss( ( showCart: boolean ) => {
+      if ( showCart ) {
+        this.modalCtrl.create( CartPage );
+      }
+    })
   }
 
   loadStorage() {
@@ -77,6 +85,21 @@ export class CartProvider {
     } else {
       localStorage.setItem('items', JSON.stringify(this.items));
     }
+  }
+
+  showAlert(title: string = 'Aviso', subTitle: string = '') {
+    this.alertCtrl.create({
+      title,
+      subTitle,
+      buttons: ['OK']
+    }).present();
+  }
+
+  showToast(message: string = 'Aviso', duration: number = 3000) {
+    this.toastCtrl.create({
+      message,
+      duration
+    }).present();
   }
 
 }
