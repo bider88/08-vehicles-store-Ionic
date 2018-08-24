@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ProductsProvider } from '../../providers/index.provider';
+import { ByCategoryPage } from '../by-category/by-category';
 
 @IonicPage()
 @Component({
@@ -8,11 +10,22 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class CategoriesPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  categories: Array<any>;
+
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private _productProvider: ProductsProvider
+  ) {
+    this.getCategories();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CategoriesPage');
+  getCategories() {
+    this.categories = this._productProvider.categories;
+  }
+
+  byCategory(category: any) {
+    this.navCtrl.push(ByCategoryPage, { category });
   }
 
 }

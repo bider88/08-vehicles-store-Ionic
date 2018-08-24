@@ -19,6 +19,7 @@ import { CategoriesPage } from '../pages/categories/categories';
 import { OrdersPage } from '../pages/orders/orders';
 import { OrdersDetailPage } from '../pages/orders-detail/orders-detail';
 import { LoginPage } from '../pages/login/login';
+import { ByCategoryPage } from '../pages/by-category/by-category';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { LoginPage } from '../pages/login/login';
     CartPage,
     TabsPage,
     CategoriesPage,
+    ByCategoryPage,
     OrdersPage,
     OrdersDetailPage,
     LoginPage
@@ -46,6 +48,7 @@ import { LoginPage } from '../pages/login/login';
     CartPage,
     TabsPage,
     CategoriesPage,
+    ByCategoryPage,
     OrdersPage,
     OrdersDetailPage,
     LoginPage
