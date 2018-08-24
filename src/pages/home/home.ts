@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { ProductsProvider } from '../../providers/index.provider';
+import { ProductsProvider, CartProvider } from '../../providers/index.provider';
 import { Product } from '../../models/product.model';
 import { ProductPage } from '../product/product';
 
@@ -15,7 +15,8 @@ export class HomePage {
 
   constructor(
     public navCtrl: NavController,
-    private _productProvider: ProductsProvider
+    private _productProvider: ProductsProvider,
+    private _cartProvider: CartProvider
   ) {
     this.getAllProducts();
   }
@@ -52,6 +53,14 @@ export class HomePage {
 
   }
 
+  totalItemsToCart(): number {
+    return this._cartProvider.items.length;
+  }
+
+  detailProduct(product: Product) {
+    this.navCtrl.push(ProductPage, { product });
+  }
+
   private group( arr: any, size: number ) {
 
     let newArray = [];
@@ -61,10 +70,6 @@ export class HomePage {
     }
 
     return newArray;
-  }
-
-  detailProduct(product: Product) {
-    this.navCtrl.push(ProductPage, { product });
   }
 
 }
