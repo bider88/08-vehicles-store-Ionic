@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AlertController, ToastController } from 'ionic-angular';
+import { AlertController, ToastController, Platform } from 'ionic-angular';
 import { Product } from '../../models/product.model';
+
+import { Storage } from '@ionic/storage';
 
 @Injectable()
 export class CartProvider {
@@ -11,9 +13,11 @@ export class CartProvider {
   constructor(
     public http: HttpClient,
     private alertCtrl: AlertController,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private storage: Storage,
+    private platform: Platform
   ) {
-    console.log('Hello CartProvider Provider');
+    this.loadStorage();
   }
 
   addToCart(item: Product) {
@@ -25,6 +29,7 @@ export class CartProvider {
     }
 
     this.items.push(item);
+    this.saveStorage();
     this.showToast(`Se ha agregado ${item.producto}.`, 2000);
   }
 
@@ -41,6 +46,37 @@ export class CartProvider {
       message,
       duration
     }).present();
+  }
+
+  loadStorage() {
+    return new Promise( (resolve, reject) => {
+      if ( this.platform.is('cordova') ) {
+
+        this.storage.get('items').then((val) => {
+
+          if ( val ) {
+            this.items = val;
+          }
+          resolve();
+        });
+
+      } else {
+
+        if ( localStorage.getItem('items') ) {
+          this.items = JSON.parse(localStorage.getItem('items'));
+        }
+
+        resolve();
+      }
+    })
+  }
+
+  private saveStorage() {
+    if ( this.platform.is('cordova') ) {
+      this.storage.set('items', this.items);
+    } else {
+      localStorage.setItem('items', JSON.stringify(this.items));
+    }
   }
 
 }
