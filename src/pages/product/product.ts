@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Product } from '../../models/product.model';
 
 @IonicPage()
 @Component({
@@ -8,11 +9,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ProductPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  product: Product
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ProductPage');
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.product = this.navParams.get('product');
   }
 
 }

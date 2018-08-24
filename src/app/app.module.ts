@@ -12,12 +12,26 @@ import { CartProvider } from '../providers/cart/cart';
 import { ProductsProvider } from '../providers/products/products';
 import { UserProvider } from '../providers/user/user';
 import { ImagePipe } from '../pipes/image/image';
+import { ProductPage } from '../pages/product/product';
+import { CartPage } from '../pages/cart/cart';
+import { TabsPage } from '../pages/tabs/tabs';
+import { CategoriesPage } from '../pages/categories/categories';
+import { OrdersPage } from '../pages/orders/orders';
+import { OrdersDetailPage } from '../pages/orders-detail/orders-detail';
+import { LoginPage } from '../pages/login/login';
 
 @NgModule({
   declarations: [
+    ImagePipe,
     MyApp,
     HomePage,
-    ImagePipe
+    ProductPage,
+    CartPage,
+    TabsPage,
+    CategoriesPage,
+    OrdersPage,
+    OrdersDetailPage,
+    LoginPage
   ],
   imports: [
     BrowserModule,
@@ -27,7 +41,14 @@ import { ImagePipe } from '../pipes/image/image';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    ProductPage,
+    CartPage,
+    TabsPage,
+    CategoriesPage,
+    OrdersPage,
+    OrdersDetailPage,
+    LoginPage
   ],
   providers: [
     StatusBar,

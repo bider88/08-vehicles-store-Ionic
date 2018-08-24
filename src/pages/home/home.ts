@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { ProductsProvider } from '../../providers/index.provider';
 import { Product } from '../../models/product.model';
+import { ProductPage } from '../product/product';
 
 @Component({
   selector: 'page-home',
@@ -60,6 +61,10 @@ export class HomePage {
     }
 
     return newArray;
+  }
+
+  detailProduct(product: Product) {
+    this.navCtrl.push(ProductPage, { product });
   }
 
 }
