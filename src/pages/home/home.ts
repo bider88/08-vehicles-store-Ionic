@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { ProductsProvider, CartProvider } from '../../providers/index.provider';
+import { NavController, ModalController, AlertController } from 'ionic-angular';
+import { ProductsProvider, CartProvider, UserProvider } from '../../providers/index.provider';
 import { Product } from '../../models/product.model';
 import { ProductPage } from '../product/product';
+import { LoginPage } from '../login/login';
+import { CartPage } from '../cart/cart';
 
 @Component({
   selector: 'page-home',
@@ -15,8 +17,11 @@ export class HomePage {
 
   constructor(
     public navCtrl: NavController,
+    private modalCtrl: ModalController,
+    private alertCtrl: AlertController,
     private _productProvider: ProductsProvider,
-    private _cartProvider: CartProvider
+    private _cartProvider: CartProvider,
+    private _userProvider: UserProvider
   ) {
     this.getAllProducts();
   }
@@ -63,6 +68,42 @@ export class HomePage {
 
   showCart() {
     this._cartProvider.showCart();
+  }
+
+  login() {
+    let modal = this.modalCtrl.create(LoginPage);
+
+    modal.onDidDismiss( showCart => {
+      if ( showCart ) {
+        this.modalCtrl.create( CartPage ).present();
+      }
+    });
+
+    modal.present();
+  }
+
+  logout() {
+
+    this.alertCtrl.create({
+      title: 'Cerrando sesión...',
+      message: '¿Estás seguro de cerrar sesión?',
+      buttons: [
+        {
+          text: 'Cancelar'
+        },
+        {
+          text: 'Cerrar sesión',
+          handler: () => {
+            this._userProvider.logout();
+          }
+        }
+      ]
+    }).present();
+    // this._userProvider.logout();
+  }
+
+  isLoggedIn() {
+    return this._userProvider.isLoggedIn();
   }
 
   private group( arr: any, size: number ) {

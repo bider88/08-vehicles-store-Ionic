@@ -1,26 +1,36 @@
 <ion-header>
-  <ion-navbar color="primary">
+  <ion-toolbar color="primary">
+
     <ion-title>
       Vehicles Store
     </ion-title>
 
     <ion-buttons end>
-      <button ion-button icon-only (click)="showCart()">
+      <button ion-button icon-only (click)="showCart()" margin-right>
         <ion-icon name="cart"></ion-icon>
         <ion-badge color="danger" *ngIf="totalItemsToCart() > 0" class="number-cart">{{ totalItemsToCart() }}</ion-badge>
       </button>
     </ion-buttons>
 
-  </ion-navbar>
+    <ion-buttons end>
+      <button *ngIf="isLoggedIn()" ion-button icon-only (click)="logout()" margin-left>
+        <ion-icon name="log-out"></ion-icon>
+      </button>
+      <button *ngIf="!isLoggedIn()" ion-button icon-only (click)="login()" margin-left>
+        <ion-icon name="person"></ion-icon>
+      </button>
+    </ion-buttons>
+
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
   <ion-grid no-padding>
     <ion-row *ngFor="let productPar of products">
-      <ion-col *ngFor="let item of productPar" (click)="detailProduct(item)">
+      <ion-col *ngFor="let item of productPar">
 
-        <ion-card>
+        <ion-card (click)="detailProduct(item)">
           <img [src]="item.codigo | image">
           <ion-card-content>
             <h3><b>{{ item.producto }}</b></h3>
