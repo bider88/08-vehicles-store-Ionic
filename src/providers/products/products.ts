@@ -5,7 +5,7 @@ import { URL_SERVICES } from '../../config/url.services';
 @Injectable()
 export class ProductsProvider {
 
-  page: number = 1;
+  page: number = 0;
 
   constructor(public http: HttpClient) { }
 
