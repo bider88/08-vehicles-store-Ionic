@@ -3,6 +3,7 @@ import { IonicPage } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { CategoriesPage } from '../categories/categories';
 import { OrdersPage } from '../orders/orders';
+import { UserProvider } from '../../providers/user/user';
 
 @IonicPage()
 @Component({
@@ -10,6 +11,7 @@ import { OrdersPage } from '../orders/orders';
   templateUrl: 'tabs.html',
 })
 export class TabsPage {
+
   tabs = [
     {
       icon: 'home',

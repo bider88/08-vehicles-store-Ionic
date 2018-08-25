@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CartProvider } from '../../providers/cart/cart';
 import { OrdersDetailPage } from '../orders-detail/orders-detail';
-import { Subscription } from 'rxjs/Subscription';
+import { UserProvider } from '../../providers/user/user';
 
 @IonicPage()
 @Component({
@@ -12,26 +12,24 @@ import { Subscription } from 'rxjs/Subscription';
 export class OrdersPage {
 
   orders: any[] = [];
-  subs: Subscription;
-
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private _cartProvider: CartProvider
+    private _cartProvider: CartProvider,
+    private _userProvider: UserProvider
   ) {
   }
 
   ionViewWillEnter(){
-    this.getOrders();
-  }
-
-  ionViewDidLeave() {
-    this.orders = [];
-    this.subs.unsubscribe();
+    if ( this._userProvider.isLoggedIn() ) {
+      this.getOrders();
+    } else {
+      this.orders = [];
+    }
   }
 
   getOrders() {
-    this.subs = this._cartProvider.getOrders().subscribe(
+    this._cartProvider.getOrders().subscribe(
       ( res: any ) => {
         this.orders = res.data;
       }

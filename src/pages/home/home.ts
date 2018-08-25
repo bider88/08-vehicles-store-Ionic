@@ -87,13 +87,6 @@ export class HomePage {
 
   login() {
     let modal = this.modalCtrl.create(LoginPage);
-
-    modal.onDidDismiss( showCart => {
-      if ( showCart ) {
-        this.modalCtrl.create( CartPage ).present();
-      }
-    });
-
     modal.present();
   }
 

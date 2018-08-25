@@ -9,6 +9,12 @@
 
 <ion-content>
 
+  <div text-center class="empty-cart" *ngIf="orders.length === 0">
+    <ion-icon ios="ios-sad-outline" md="md-sad" class="icon-5x"></ion-icon>
+    <br>
+    Aún no tienes ordenes
+  </div>
+
   <ion-list>
 
     <button ion-item *ngFor="let order of orders" (click)="goToDetailOrder(order)">
