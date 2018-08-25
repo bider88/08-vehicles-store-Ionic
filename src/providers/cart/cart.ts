@@ -13,6 +13,7 @@ import { LoginPage } from '../../pages/login/login';
 export class CartProvider {
 
   items: Product[] = [];
+  amount: number = 0;
 
   constructor(
     public http: HttpClient,
@@ -24,6 +25,7 @@ export class CartProvider {
     private platform: Platform
   ) {
     this.loadStorage();
+    this.updateAmount();
   }
 
   addToCart(item: Product) {
@@ -36,26 +38,16 @@ export class CartProvider {
 
     this.items.push(item);
     this.saveStorage();
+    this.updateAmount();
     this.showToast(`Se ha agregado ${item.producto}.`, 2000);
   }
 
-  showCart() {
+  updateAmount() {
+    this.amount = 0;
 
-    let modal: any;
-
-    if ( this._userProvider.token ) {
-      modal = this.modalCtrl.create( CartPage );
-    } else {
-      modal = this.modalCtrl.create( LoginPage );
+    for ( let item  of this.items ) {
+      this.amount += Number( item.precio_compra );
     }
-
-    modal.onDidDismiss( showCart => {
-      if ( showCart ) {
-        this.modalCtrl.create( CartPage ).present();
-      }
-    });
-
-    modal.present();
   }
 
   loadStorage() {

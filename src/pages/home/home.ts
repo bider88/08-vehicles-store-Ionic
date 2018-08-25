@@ -67,7 +67,22 @@ export class HomePage {
   }
 
   showCart() {
-    this._cartProvider.showCart();
+
+    let modal: any;
+
+    if ( this._userProvider.token ) {
+      modal = this.modalCtrl.create( CartPage );
+    } else {
+      modal = this.modalCtrl.create( LoginPage );
+    }
+
+    modal.onDidDismiss( showCart => {
+      if ( showCart ) {
+        this.modalCtrl.create( CartPage ).present();
+      }
+    });
+
+    modal.present();
   }
 
   login() {
