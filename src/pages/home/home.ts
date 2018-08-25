@@ -86,8 +86,7 @@ export class HomePage {
   }
 
   login() {
-    let modal = this.modalCtrl.create(LoginPage);
-    modal.present();
+    this.modalCtrl.create(LoginPage).present();
   }
 
   logout() {
