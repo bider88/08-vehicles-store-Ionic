@@ -25,6 +25,7 @@ import { OrdersPage } from '../pages/orders/orders';
 import { OrdersDetailPage } from '../pages/orders-detail/orders-detail';
 import { LoginPage } from '../pages/login/login';
 import { ByCategoryPage } from '../pages/by-category/by-category';
+import { SearchPage } from '../pages/search/search';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { ByCategoryPage } from '../pages/by-category/by-category';
     ByCategoryPage,
     OrdersPage,
     OrdersDetailPage,
-    LoginPage
+    LoginPage,
+    SearchPage
   ],
   imports: [
     BrowserModule,
@@ -58,7 +60,8 @@ import { ByCategoryPage } from '../pages/by-category/by-category';
     ByCategoryPage,
     OrdersPage,
     OrdersDetailPage,
-    LoginPage
+    LoginPage,
+    SearchPage
   ],
   providers: [
     StatusBar,

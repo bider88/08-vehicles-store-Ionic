@@ -1,0 +1,21 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Buscar vehículo</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+  <ion-searchbar (ionInput)="searchProduct($event)"></ion-searchbar>
+
+  <ion-list>
+    <ion-item *ngFor="let item of items" (click)="goToProduct(item)">
+      {{ item.producto }}
+    </ion-item>
+  </ion-list>
+
+  <div text-center *ngIf="anyResults && noResults()">
+    No se han encontrado resultados para <b>"{{ term }}"</b>
+  </div>
+</ion-content>

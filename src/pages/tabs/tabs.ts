@@ -4,6 +4,7 @@ import { HomePage } from '../home/home';
 import { CategoriesPage } from '../categories/categories';
 import { OrdersPage } from '../orders/orders';
 import { UserProvider } from '../../providers/user/user';
+import { SearchPage } from '../search/search';
 
 @IonicPage()
 @Component({
@@ -22,6 +23,11 @@ export class TabsPage {
       icon: 'star',
       title: 'Categorías',
       page: CategoriesPage
+    },
+    {
+      icon: 'search',
+      title: 'Buscar',
+      page: SearchPage
     },
     {
       icon: 'list',

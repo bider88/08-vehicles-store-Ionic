@@ -37,4 +37,10 @@ export class ProductsProvider {
     return this.http.get(url);
   }
 
+  searchProduct(term: string) {
+    const url = `${ URL_SERVICES }/products/search/${ term }`;
+
+    return this.http.get(url);
+  }
+
 }
