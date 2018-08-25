@@ -9,6 +9,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 // Plugins
 import { IonicStorageModule } from '@ionic/storage';
 
+import { MomentModule } from 'angular2-moment';
+
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { CartProvider } from '../providers/cart/cart';
@@ -42,7 +44,8 @@ import { ByCategoryPage } from '../pages/by-category/by-category';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpClientModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    MomentModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

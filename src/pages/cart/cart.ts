@@ -38,7 +38,7 @@ export class CartPage {
 
   buy() {
     const loading = this.loadingCtrl.create({
-      content: 'Realizando compra...'
+      content: 'Realizando orden...'
     });
     loading.present();
     this._cartProvider.generateOrder(loading, this.viewCtrl);

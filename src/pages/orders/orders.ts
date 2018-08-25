@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { CartProvider } from '../../providers/cart/cart';
+import { OrdersDetailPage } from '../orders-detail/orders-detail';
+import { Subscription } from 'rxjs/Subscription';
 
 @IonicPage()
 @Component({
@@ -8,11 +11,35 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class OrdersPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  orders: any[] = [];
+  subs: Subscription;
+
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private _cartProvider: CartProvider
+  ) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad OrdersPage');
+  ionViewWillEnter(){
+    this.getOrders();
+  }
+
+  ionViewDidLeave() {
+    this.orders = [];
+    this.subs.unsubscribe();
+  }
+
+  getOrders() {
+    this.subs = this._cartProvider.getOrders().subscribe(
+      ( res: any ) => {
+        this.orders = res.data;
+      }
+    );
+  }
+
+  goToDetailOrder(order: any) {
+    this.navCtrl.push(OrdersDetailPage, { order })
   }
 
 }

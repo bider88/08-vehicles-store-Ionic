@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AlertController, ToastController, Platform, LoadingController } from 'ionic-angular';
+import { AlertController, ToastController, Platform } from 'ionic-angular';
 import { Product } from '../../models/product.model';
 
 // Plugins
@@ -67,12 +67,24 @@ export class CartProvider {
           this.items = [];
           this.saveStorage();
           modal.dismiss();
-          this.showAlert('Compra realizada', 'Su compra esta siendo atendida');
+          this.showAlert('Orden realizada', 'Su orden esta siendo atendida');
         }
 
         loading.dismiss();
       }
     );
+  }
+
+  getOrders() {
+    const url = `${ URL_SERVICES }/orders/get_orders/${ this._userProvider.token }/${ this._userProvider.id_user }`;
+
+    return this.http.get(url);
+  }
+
+  deleteOrder(id: any) {
+    const url = `${ URL_SERVICES }/orders/delete_orders/${ this._userProvider.token }/${ this._userProvider.id_user }/${id}`;
+
+    return this.http.delete(url);
   }
 
   updateAmount() {
