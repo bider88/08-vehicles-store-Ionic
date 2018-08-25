@@ -1,2 +1,2 @@
-export const URL_SERVICES = 'http://localhost/rest/index.php';
-export const URL_IMAGE = 'http://localhost/rest/public/img/productos/';
+export const URL_SERVICES = 'https://rest-vehicles.herokuapp.com/index.php';
+export const URL_IMAGE = 'https://rest-vehicles.herokuapp.com/public/img/productos/';
