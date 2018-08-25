@@ -1,13 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AlertController, ToastController, Platform, ModalController } from 'ionic-angular';
+import { AlertController, ToastController, Platform, LoadingController } from 'ionic-angular';
 import { Product } from '../../models/product.model';
 
-import { UserProvider } from '../user/user';
 // Plugins
 import { Storage } from '@ionic/storage';
-import { CartPage } from '../../pages/cart/cart';
-import { LoginPage } from '../../pages/login/login';
+import { URL_SERVICES } from '../../config/url.services';
+import { UserProvider } from '../user/user';
 
 @Injectable()
 export class CartProvider {
@@ -17,12 +16,11 @@ export class CartProvider {
 
   constructor(
     public http: HttpClient,
-    private _userProvider: UserProvider,
     private alertCtrl: AlertController,
     private toastCtrl: ToastController,
-    private modalCtrl: ModalController,
     private storage: Storage,
-    private platform: Platform
+    private platform: Platform,
+    private _userProvider: UserProvider
   ) {
     this.loadStorage();
     this.updateAmount();
@@ -40,6 +38,41 @@ export class CartProvider {
     this.saveStorage();
     this.updateAmount();
     this.showToast(`Se ha agregado ${item.producto}.`, 2000);
+  }
+
+  removeItem(index: number) {
+    this.items.splice(index, 1);
+    this.saveStorage();
+    this.updateAmount();
+  }
+
+  generateOrder(loading: any, modal: any) {
+    let codes: string[] = [];
+
+    for ( let item of this.items ) {
+      codes.push( item.codigo );
+    }
+    const products = {
+      items: codes.join(',')
+    }
+
+    const url = `${ URL_SERVICES }/orders/generate_order/${ this._userProvider.token }/${ this._userProvider.id_user }`;
+
+    this.http.post(url, products).subscribe(
+      ( res: any ) => {
+        if ( !res.ok ) {
+          console.log( JSON.stringify(res.error) );
+          this.showToast(res.error);
+        } else {
+          this.items = [];
+          this.saveStorage();
+          modal.dismiss();
+          this.showAlert('Compra realizada', 'Su compra esta siendo atendida');
+        }
+
+        loading.dismiss();
+      }
+    );
   }
 
   updateAmount() {

@@ -24,7 +24,7 @@
   </div>
 
   <ion-list>
-    <ion-item *ngFor="let item of items">
+    <ion-item *ngFor="let item of items; let i = index">
       <ion-thumbnail item-start>
         <img [src]="item.codigo | image">
       </ion-thumbnail>
@@ -32,13 +32,13 @@
       <p>
         {{ item.precio_compra | currency }}
       </p>
-      <button ion-button color="danger" outline item-end (click)="deleteItem(item)">Borrar</button>
+      <button ion-button color="danger" outline item-end (click)="deleteItem(item, i)">Borrar</button>
     </ion-item>
   </ion-list>
 
 </ion-content>
 
-<ion-footer>
+<ion-footer *ngIf="items.length > 0">
   <ion-toolbar>
     <ion-title><b>Total: </b> {{ getAmount() | currency }}</ion-title>
 
